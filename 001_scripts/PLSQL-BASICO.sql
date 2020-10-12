@@ -240,7 +240,18 @@ from departments
 natural join employees;
 
 
+-- Cláusula USING
 
+-- Mostrando a união da tabela de empregados e departamentos
+select employee_id, last_name, location_id, department_id
+from employees join departments
+using (department_id);
+
+-- Utiluzando o USING com apelidos 
+select l.city,d.department_name
+from locations l join departments d
+using (location_id)
+where location_id = 1400;
 
 
 
