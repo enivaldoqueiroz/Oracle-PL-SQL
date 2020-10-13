@@ -188,3 +188,49 @@ INSERT INTO customers(customer_id, first_name, last_name, dob, phone)
 VALUES (6, 'Fred', 'Brown', '01-JAN-1970', '800-555-1215');
 
 SELECT * FROM customers;
+
+
+-- Modificando uma linha existente em uma tabela
+
+-- Utilizando o UPDATE
+UPDATE customers
+SET last_name = 'Orange'
+WHERE customer_id = 2;
+
+-- OBS.: CUIDADO
+-- Se você se esquecer de adicionar uma cláusula WHERE, 
+-- todas as linhas serão atualizadas.
+
+SELECT * FROM customers WHERE customer_id = 2;
+
+-- Removendo uma linha de uma tabela
+DELETE FROM customers
+WHERE customer_id = 2;
+
+DESC customers;
+
+-- Para desfazer as alterações feitas nas linhas, use ROLLBACK:
+ROLLBACK;
+
+-- Usando BINARY_FLOAT e BINARY_DOUBLE em uma tabela.
+CREATE TABLE binary_test(
+    bin_float BINARY_FLOAT,
+    bin_double BINARY_DOUBLE
+);
+
+INSERT INTO binary_test (bin_float,bin_double)
+VALUES (39.5f,15.7d);
+
+INSERT INTO binary_test (bin_float, bin_double) 
+VALUES (BINARY_FLOAT_INFINITY, BINARY_DOUBLE_INFINITY);
+
+
+-- Valor especial           Descrição
+-- BINARY_FLOAT_NAN         Valor não-numérico (NaN--Not a number) para o tipo
+--                          BINARY_FLOAT
+-- BINARY_FLOAT_INFINITY    Infinito (INF--Infinity) para o tipo BINARY_FLOAT
+-- BINARY_DOUBLE_NAN        Valor não-numérico (NaN--Not a number) para o tipo
+--                          BINARY_DOUBLE
+-- BINARY_DOUBLE_INFINITY   Infinito (INF--Infinity) para o tipo BINARY_DOUBLE
+
+SELECT * FROM binary_test;
