@@ -236,3 +236,82 @@ VALUES (BINARY_FLOAT_INFINITY, BINARY_DOUBLE_INFINITY);
 SELECT * FROM binary_test;
 
 COMMIT;
+
+-- *****************************************************************
+-- INTRODUÇÃO AO PL/SQL DA ORACLE
+
+-- Declarações de variável
+-- Lógica condicional (if-then-else etc.)
+-- Loops
+-- Procedures e funções
+
+
+-- A instrução CREATE PROCEDURE a seguir cria uma procedure chamada update_product_
+-- price(), que multiplica o preço de um produto por um fator
+/*
+CREATE PROCEDURE update_product_price(
+    p_product_id IN products.product_id%TYPE,
+    p_factor IN NUMBER
+)AS
+    product_count INTEGER;
+    
+BEGIN
+    -- Conta o número de produtos com
+    -- product_id fornecido (será 1 se o produto existir)
+    SELECT COUNT(*)
+    INTO product_count
+    FROM products
+    WHERE product_id = p_product_id;
+    -- Se o produto existe (isto é, product_count = 1), então
+    -- atualiza o preço desse produto
+    IF product_count = 1 THEN
+        UPDATE products
+        SET price = price * p_factor
+        WHERE product_id = p_product_id
+        COMMIT;
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;    
+END update_product_price;
+*/
+
+-- Recuperando informações de tabelas
+
+-- Consultando a tabela customers
+SELECT customer_id, first_name, last_name, dob, phone
+FROM customers;
+
+SELECT * FROM customers;
+
+-- Especificando as linhas a serem recuperadas usando a cláusula WHERE
+
+SELECT *
+FROM customers
+WHERE customer_id = 2;
+
+/*NOTAS:
+Para que você tenha uma idéia da capacidade de armazenamento do banco Oracle, 
+não existe limite de linhas por tabela; você pode ter milhões, bilhões de linhas 
+em uma mesma tabela e mesmo assim manter o desempenho particionando as tabelas. 
+O limite físico do banco de dados Oracle para armazenamento 
+de dados é até 65.536 tablespaces, cada uma com um datafile de até 128 TB, 
+o que permite ao Oracle armazenar até 8 hexabytes de informação em uma única 
+instância. Um hexabyte corresponde a 1,000,000,000,000,000,000
+de bytes ou 1 bilhão de gigabytes.*/
+
+-- A coluna ROWID é conhecida como uma pseudocoluna.
+SELECT ROWID, customer_id
+FROM customers;
+
+DESC customers;
+
+-- Outra pseudocoluna é ROWNUM, que retorna o número da linha em um conjunto de resultados.
+SELECT ROWNUM, customer_id, first_name, last_name
+FROM customers;
+
+SELECT ROWNUM, customer_id, first_name, last_name
+FROM customers
+WHERE customer_id = 3;
+
+
