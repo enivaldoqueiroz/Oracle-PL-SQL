@@ -15,6 +15,8 @@
 --      employees contém os detalhes dos funcionários
 --      salary_grades contém os detalhes dos níveis salariais
 
+-- Mostra as tabelas às quais o usuário tem acesso;
+SELECT table_name FROM user_tables;
 
 -- Criação da tabela customers
 CREATE TABLE customers(
@@ -314,4 +316,102 @@ SELECT ROWNUM, customer_id, first_name, last_name
 FROM customers
 WHERE customer_id = 3;
 
+-- Efetuando cálculos Aritméticos
+
+/*
+Operador Descrição
++ Adição
+- Subtração
+* Multiplicação
+/ Divisão
+*/
+
+SELECT 2 * 6
+FROM dual;
+
+-- Somando um número com o dia
+-- TO_DATE() é uma função que converte uma string em uma data.
+SELECT TO_DATE('25-JUL-2007') + 2
+FROM dual;
+
+-- Analizando a tabela dual
+DESC dual;
+SELECT * FROM dual;
+
+-- Subtrando três dias de 2 de Agosto de 2007
+SELECT TO_DATE('02/9/2007') - 3
+FROM dual;
+
+-- Subtrando uma data de outra data
+SELECT TO_DATE('02/8/2007') - TO_DATE('25/7/2007')
+FROM dual;
+
+SELECT name, price
+FROM products;
+
+SELECT name, price + 2
+FROM products;
+
+SELECT * FROM products;
+
+SELECT 10 * 12 / 3 - 1
+FROM dual;
+
+SELECT 10 * (12 / 3 -1)
+FROM dual;
+
+-- Usando apelidos de culuna
+
+SELECT price * 2 DOUBLE_PRICE
+FROM products;
+
+SELECT price * 2 "DOUBLE PRICE"
+FROM products;
+
+SELECT 10 * (12 / 3 - 1) AS "Computation"
+FROM dual;
+
+-- Combinando saída de coluna usando concatenação
+
+-- Operador de concatenação (||)
+-- Sem espaço
+SELECT first_name || last_name AS "Customer Name"
+FROM customers;
+
+-- Com espaço
+SELECT first_name || ' ' || last_name AS "Customer Name"
+FROM customers;
+
+-- Valores Nulos
+
+SELECT * FROM customers;
+
+-- Verificando se exitem algum valor nulos na tabela utilizando IS NULL
+SELECT customer_id, first_name, last_name, dob
+FROM customers
+WHERE dob IS NULL;
+
+SELECT customer_id, first_name, last_name, phone
+FROM customers
+WHERE phone IS NULL;
+
+-- A função NVL() retorna outro valor no lugar de um nulo.
+
+/*Na consulta a seguir, NVL() retorna a string 'Unknown phone number' (número de telefone
+desconhecido) quando a coluna phone contém um valor nulo:*/
+SELECT customer_id AS "Cliente",first_name AS "1º Nome",last_name AS "2º Nome",
+NVL(phone,'Nº de telefone desconhecido') AS "Nº telefonico"
+FROM customers;
+
+SELECT customer_id AS "Cliente",first_name AS "1º Nome",last_name AS "2º Nome",
+NVL(dob,'01-JAN-2000') AS DOB
+FROM customers;
+
+-- Exibindo linhas distintas
+
+SELECT customer_id
+FROM purchases;
+
+DESC customers;
+DESC purchases;
 
