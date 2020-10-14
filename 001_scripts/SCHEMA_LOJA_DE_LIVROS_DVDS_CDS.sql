@@ -407,11 +407,59 @@ SELECT customer_id AS "Cliente",first_name AS "1º Nome",last_name AS "2º Nome",
 NVL(dob,'01-JAN-2000') AS DOB
 FROM customers;
 
--- Exibindo linhas distintas
 
-SELECT customer_id
-FROM purchases;
 
 DESC customers;
 DESC purchases;
+
+-- Exibindo linhas distintas
+SELECT customer_id
+FROM purchases;
+
+-- Na consulta a seguir, DISTINCT é usada para suprimir as linhas duplicadas:
+SELECT DISTINCT customer_id
+FROM purchases;
+
+
+-- Comparando valores
+
+/*
+Operador Descrição
+= Igual
+<> ou != Diferente
+< Menor que
+> Maior que
+<= Menor ou igual a
+>= Maior ou igual a
+ANY Compara um valor com qualquer valor em uma lista
+SOME Idêntico ao operador ANY; você deve usar ANY, em vez de SOME, pois ANY é mais utilizado e legível.
+ALL Compara um valor com todos os valores em uma lista
+*/
+
+SELECT * 
+FROM customers
+WHERE customer_id <> 2;
+
+DESC products;
+
+SELECT product_id, name
+FROM products
+WHERE product_id > 2;
+
+SELECT ROWNUM, product_id, name
+FROM products
+WHERE ROWNUM <= 3;
+
+/*A consulta a seguir usa ANY para recuperar as linhas da tabela customers onde 
+o valor na coluna customer_id é maior do que qualquer um dos valores 2, 3 ou 4:*/ 
+SELECT *
+FROM customers
+WHERE customer_id > ANY (2, 3, 4);
+
+
+/*A consulta a seguir usa ALL para recuperar as linhas da tabela customers onde 
+o valor na coluna customer_id é maior do que os valores 2, 3 e 4:*/
+SELECT *
+FROM customers
+WHERE customer_id > ALL (2, 3, 4);
 
