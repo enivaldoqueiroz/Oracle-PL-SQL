@@ -513,4 +513,81 @@ SELECT *
 FROM customers
 WHERE customer_id NOT IN (2,3,5,NULL);
 
+/*
+Usando o operador BETWEEN
+É possível usar o operador BETWEEN em uma cláusula WHERE para recuperar as linhas cujo valor
+de coluna está em um intervalo especificado.
+*/
+
+-- BETWEEN
+SELECT *
+FROM customers
+WHERE customer_id BETWEEN 1 AND 4;
+
+-- NOT BETWEEN recupera as linhas não recuperadas por BETWEEN:
+SELECT *
+FROM customers
+WHERE customer_id NOT BETWEEN 1 AND 4;
+
+/*
+USANDO OS OPERADORES LÓGICOS
+
+Os operadores lógicos permitem limitar as linhas com base em condições lógicas. Eles estão listados na tabela a seguir:
+Operador Descrição
+x AND y Retorna verdadeiro quando x e y são verdadeiros
+x OR y Retorna verdadeiro quando x ou y são verdadeiros
+NOT x Retorna verdadeiro se x for falso e retorna falso se x for verdadeiro
+*/
+
+SELECT * FROM customers;
+
+SELECT *
+FROM customers
+WHERE dob > '01/01/1970'
+AND customer_id > 3;
+
+SELECT *
+FROM customers
+WHERE dob > '01/01/1970'
+OR customer_id > 3;
+
+
+/*
+PRECEDÊNCIA DE OPERADORES
+
+Se você combinar AND e OR na mesma expressão, o operador AND terá precedência sobre o operador
+OR (“ter precedência sobre” significa que ele será executado primeiro)
+*/
+
+SELECT *
+FROM customers
+WHERE dob > '01/01/1970'
+OR customer_id < 2
+AND phone LIKE '%1211';
+
+SELECT *
+FROM customers
+WHERE dob > '01/01/1970'
+OR (customer_id < 2
+AND phone LIKE '%1211');
+
+/*CLASSIFICANDO LINHAS USANDO A CLÁUSULA ORDER BY
+
+A cláusula ORDER BY é usada para classificar as linhas recuperadas por uma consulta*/
+
+SELECT *
+FROM customers
+ORDER BY last_name;
+
+SELECT *
+FROM customers
+ORDER BY first_name ASC, last_name DESC;
+
+SELECT customer_id, first_name, last_name
+FROM customers
+ORDER BY 1;
+
+SELECT customer_id, first_name, last_name
+FROM customers
+ORDER BY 2 DESC;
 
