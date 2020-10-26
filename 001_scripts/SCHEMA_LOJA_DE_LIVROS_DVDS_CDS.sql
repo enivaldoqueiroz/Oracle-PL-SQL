@@ -463,3 +463,54 @@ SELECT *
 FROM customers
 WHERE customer_id > ALL (2, 3, 4);
 
+
+/*
+USANDO OS OPERADORES SQL - 25/10/2020
+
+Os operadores SQL permitem limitar as linhas com base na correspondência de padrão de strings, listas
+de valores, intervalos de valores e valores nulos.
+
+Operador Descrição
+LIKE        Corresponde a padrões em strings
+IN          Corresponde a listas de valores
+BETWEEN     Corresponde a um intervalo de valores
+IS NULL     Corresponde a valores nulos
+IS NAN      Corresponde ao valor especial NAN, que significa “not a number”
+            (não é número) (a partir do Oracle Database 10g)
+IS INFINITE Corresponde a valores BINARY_FLOAT e BINARY_DOUBLE infinitos
+            (a partir do Oracle Database 10g)
+*/
+
+-- LIKE
+SELECT *
+FROM customers
+WHERE first_name LIKE '_o%';
+
+-- NOT LIKE
+SELECT *
+FROM customers
+WHERE first_name NOT LIKE '_o%';
+
+-- PROCURANDO CARACTERIS NA STRING
+DESC employees
+SELECT nome
+FROM employees
+WHERE hire_date LIKE '%\%%' ESCAPE '\';
+
+-- IN
+/*A consulta a seguir usa IN para recuperar as linhas da tabela customers onde
+customer_id é 2, 3 ou 5*/
+SELECT *
+FROM customers
+WHERE customer_id IN (2, 3, 5);
+
+-- NOT IN
+SELECT *
+FROM customers
+WHERE customer_id NOT IN (2, 3, 5);
+
+SELECT *
+FROM customers
+WHERE customer_id NOT IN (2,3,5,NULL);
+
+
